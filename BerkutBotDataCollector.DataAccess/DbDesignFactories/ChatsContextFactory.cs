@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace BerkutBotDataCollector.DataAccess.DbDesignFactories
 {
-	public class ChatsContextFactory : IDesignTimeDbContextFactory<ChatsDbContext>
+	internal class ChatsContextFactory : IDesignTimeDbContextFactory<ChatsDbContext>
     {
         public ChatsDbContext CreateDbContext(string[] args)
         {

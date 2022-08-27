@@ -21,14 +21,6 @@ namespace BerkutBotDataCollector
                 .AddEnvironmentVariables()
                 .Build();
 
-            builder.Services.AddDbContext<ChatsDbContext>(options =>
-            {
-                options.UseSqlServer(_functionConfig.GetConnectionString("ChatsConnectionString"),
-                    settings =>
-                    {
-                        settings.EnableRetryOnFailure();
-                    });
-            });
             builder.Services.AddTransient<IRepository<Chat>, ChatsRepository>();
         }
     }

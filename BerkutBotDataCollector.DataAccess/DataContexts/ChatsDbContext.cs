@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace BerkutBotDataCollector.DataAccess.DataContexts
 {
-    public class ChatsDbContext : DbContext
+    internal class ChatsDbContext : DbContext
     {
         public ChatsDbContext(DbContextOptions<ChatsDbContext> options)
             : base(options) {}

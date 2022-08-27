@@ -20,9 +20,15 @@ namespace BerkutBotDataCollector
         }
 
         [FunctionName("BerkutBotDataCollector")]
-        public void Run([ServiceBusTrigger("tgincomemessages", "datacollector", Connection = "ServiceBusConnection")] Telegram.Bot.Types.Message tgMessage)
+        public void Run([ServiceBusTrigger("tgincomemessages", "datacollector", Connection = "ServiceBusConnection")] Telegram.Bot.Types.Message tgMessage, ILogger log)
         {
-             
+            _chatsRepository.Add(new DataAccess.Models.Chat(tgMessage.Chat.Id)
+            {
+                Title = tgMessage.Chat.Title,
+                FirstName = tgMessage.Chat.FirstName,
+                LastName = tgMessage.Chat.LastName,
+                Username = tgMessage.Chat.Username
+            });
         }
     }
 }

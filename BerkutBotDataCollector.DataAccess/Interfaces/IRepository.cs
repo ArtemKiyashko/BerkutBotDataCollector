@@ -1,11 +1,14 @@
 ﻿using System;
+using BerkutBotDataCollector.DataAccess.Models;
+
 namespace BerkutBotDataCollector.DataAccess.Interfaces
 {
-	public interface IRepository<T>
+	public interface IRepository<T> where T : BaseEntity
 	{
 		Task<Guid> Add(T entity);
 		Task<T> GetById(Guid id);
-		Task<T> Find(Func<T, bool> func);
+        Task<T> GetByTelegramId(long telegramId);
+        Task<T> Find(Func<T, bool> func);
 	}
 }
 
