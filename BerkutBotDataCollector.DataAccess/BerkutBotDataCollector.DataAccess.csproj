@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UserSecretsId>47099663-6267-4349-b905-7e0bed7da2ec</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,17 +13,29 @@
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Repositories\" />
     <None Remove="DataContexts\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Microsoft.Extensions.Configuration" />
+    <None Remove="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+    <None Remove="Microsoft.Extensions.Configuration.UserSecrets" />
+    <None Remove="DbDesignFactories\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Repositories\" />
     <Folder Include="DataContexts\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="DbDesignFactories\" />
   </ItemGroup>
 </Project>
