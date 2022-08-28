@@ -5,30 +5,31 @@ using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
 using BerkutBotDataCollector.DataAccess.Models;
+using AutoMapper;
+using BerkutBotDataCollector.Infrastructure;
 
 namespace BerkutBotDataCollector
 {
     public class BerkutBotDataCollector
     {
         private readonly ILogger<BerkutBotDataCollector> _logger;
-        private readonly IRepository<DataAccess.Models.Chat> _chatsRepository;
+        private readonly IDataStorePipeline _dataStorePipeline;
+        private readonly IMapper _mapper;
 
-        public BerkutBotDataCollector(ILogger<BerkutBotDataCollector> log, IRepository<DataAccess.Models.Chat> chatsRepository)
+        public BerkutBotDataCollector(
+            ILogger<BerkutBotDataCollector> log,
+            IDataStorePipeline dataStorePipeline,
+            IMapper mapper)
         {
             _logger = log;
-            _chatsRepository = chatsRepository;
+            _dataStorePipeline = dataStorePipeline;
+            _mapper = mapper;
         }
 
         [FunctionName("BerkutBotDataCollector")]
-        public void Run([ServiceBusTrigger("tgincomemessages", "datacollector", Connection = "ServiceBusConnection")] Telegram.Bot.Types.Message tgMessage, ILogger log)
+        public void Run([ServiceBusTrigger("tgincomemessages", "datacollector", Connection = "ServiceBusConnection", IsSessionsEnabled = true)] Telegram.Bot.Types.Message tgMessage, ILogger log)
         {
-            _chatsRepository.Add(new DataAccess.Models.Chat(tgMessage.Chat.Id)
-            {
-                Title = tgMessage.Chat.Title,
-                FirstName = tgMessage.Chat.FirstName,
-                LastName = tgMessage.Chat.LastName,
-                Username = tgMessage.Chat.Username
-            });
+            _dataStorePipeline.Run(tgMessage);
         }
     }
 }

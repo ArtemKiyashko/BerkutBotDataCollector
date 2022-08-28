@@ -4,16 +4,18 @@ using BerkutBotDataCollector.DataAccess.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BerkutBotDataCollector.DataAccess.Migrations
+namespace BerkutBotDataCollector.DataAccess.Migrations.MembersDb
 {
-    [DbContext(typeof(ChatsDbContext))]
-    partial class ChatsDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MembersDbContext))]
+    [Migration("20220828124104_SetTgIdUniqueue")]
+    partial class SetTgIdUniqueue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace BerkutBotDataCollector.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BerkutBotDataCollector.DataAccess.Models.Chat", b =>
+            modelBuilder.Entity("BerkutBotDataCollector.DataAccess.Models.Member", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,14 +36,17 @@ namespace BerkutBotDataCollector.DataAccess.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsBot")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("TelegramId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("UpdatedDateTime")
                         .HasColumnType("datetimeoffset");
@@ -54,7 +59,7 @@ namespace BerkutBotDataCollector.DataAccess.Migrations
                     b.HasIndex("TelegramId")
                         .IsUnique();
 
-                    b.ToTable("Chats");
+                    b.ToTable("Members");
                 });
 #pragma warning restore 612, 618
         }

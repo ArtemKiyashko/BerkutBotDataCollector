@@ -6,6 +6,9 @@ namespace BerkutBotDataCollector.DataAccess.DataContexts
 {
     public class MembersDbContext : DbContext
     {
+        public MembersDbContext(DbContextOptions<MembersDbContext> options)
+            : base(options) {}
+
         public DbSet<Member> Members { get; set; }
     }
 }

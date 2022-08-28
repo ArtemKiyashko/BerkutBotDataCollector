@@ -7,7 +7,7 @@ namespace BerkutBotDataCollector.DataAccess.Models
         {
         }
 
-        public string Text { get; set; }
+        public string? Text { get; set; }
         public long TelegramFromId { get; set; }
         public long TelegramChatId { get; set; }
     }

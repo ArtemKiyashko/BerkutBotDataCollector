@@ -8,7 +8,7 @@ namespace BerkutBotDataCollector.DataAccess.Interfaces
 		Task<Guid> Add(T entity);
 		Task<T> GetById(Guid id);
         Task<T> GetByTelegramId(long telegramId);
-        Task<T> Find(Func<T, bool> func);
+        Task<ICollection<T>> GetAll();
 	}
 }
 

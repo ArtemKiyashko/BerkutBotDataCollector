@@ -35,7 +35,7 @@ namespace BerkutBotDataCollector.DataAccess.Repositories
             return entity.Id;
         }
 
-        public async Task<Chat> Find(Func<Chat, bool> func) => await _chatsDbContext.Chats.FirstOrDefaultAsync(c => func(c));
+        public async Task<ICollection<Chat>> GetAll() => await _chatsDbContext.Chats.ToListAsync();
 
         public async Task<Chat> GetById(Guid id) => await _chatsDbContext.Chats.FindAsync(id);
 

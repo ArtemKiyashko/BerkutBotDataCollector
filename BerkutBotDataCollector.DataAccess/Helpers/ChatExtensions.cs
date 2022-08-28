@@ -8,7 +8,10 @@ namespace BerkutBotDataCollector.DataAccess.Helpers
 		public static Chat CopyTo(this Chat source, Chat destination)
 		{
             destination.Title = source.Title;
-			destination.UpdatedDateTime = source.UpdatedDateTime;
+            destination.FirstName = source.FirstName;
+            destination.LastName = source.LastName;
+            destination.Username = source.Username;
+            destination.UpdatedDateTime = source.UpdatedDateTime;
 			return destination;
         }
 	}
