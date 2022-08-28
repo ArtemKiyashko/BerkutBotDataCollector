@@ -21,6 +21,11 @@
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
     <None Remove="Infrastructure\" />
+    <None Remove="ViewModels\" />
+    <None Remove="ServiceBusProcessors\" />
+    <None Remove="Options\" />
+    <None Remove="Proxies\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -38,5 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="ServiceBusProcessors\" />
+    <Folder Include="Options\" />
+    <Folder Include="Proxies\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>

@@ -12,22 +12,16 @@ namespace BerkutBotDataCollector
 {
     public class BerkutBotDataCollector
     {
-        private readonly ILogger<BerkutBotDataCollector> _logger;
         private readonly IDataStorePipeline _dataStorePipeline;
-        private readonly IMapper _mapper;
 
         public BerkutBotDataCollector(
-            ILogger<BerkutBotDataCollector> log,
-            IDataStorePipeline dataStorePipeline,
-            IMapper mapper)
+            IDataStorePipeline dataStorePipeline)
         {
-            _logger = log;
             _dataStorePipeline = dataStorePipeline;
-            _mapper = mapper;
         }
 
         [FunctionName("BerkutBotDataCollector")]
-        public void Run([ServiceBusTrigger("tgincomemessages", "datacollector", Connection = "ServiceBusConnection", IsSessionsEnabled = true)] Telegram.Bot.Types.Message tgMessage, ILogger log)
+        public void Run([ServiceBusTrigger("tgincomemessages", "datacollector", Connection = "ServiceBusOptions", IsSessionsEnabled = true)] Telegram.Bot.Types.Message tgMessage, ILogger log)
         {
             _dataStorePipeline.Run(tgMessage);
         }

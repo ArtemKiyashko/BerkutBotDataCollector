@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using BerkutBotDataCollector.ViewModels;
 using Dto = BerkutBotDataCollector.DataAccess.Models;
 using Vm = Telegram.Bot.Types;
 
@@ -21,6 +22,7 @@ namespace BerkutBotDataCollector
                 .ConstructUsing(source => new Dto.Member(source.Id))
                 .ForMember(destination => destination.TelegramId, opt => opt.MapFrom(source => source.Id))
                 .ForMember(destination => destination.Id, opt => opt.Ignore());
+            CreateMap<Announcement, AnnouncementMessage>();
         }
 	}
 }
