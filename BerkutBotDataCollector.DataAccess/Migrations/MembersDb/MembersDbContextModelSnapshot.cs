@@ -54,8 +54,12 @@ namespace BerkutBotDataCollector.DataAccess.Migrations.MembersDb
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedDateTime");
+
                     b.HasIndex("TelegramId")
                         .IsUnique();
+
+                    b.HasIndex("UpdatedDateTime");
 
                     b.ToTable("Members");
                 });

@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 namespace BerkutBotDataCollector.DataAccess.Models
 {
     [Index(nameof(TelegramId), IsUnique = true)]
+    [Index(nameof(CreatedDateTime))]
+    [Index(nameof(UpdatedDateTime))]
     public record BaseEntity(long TelegramId)
     {
         public Guid Id { get; init; } = Guid.NewGuid();

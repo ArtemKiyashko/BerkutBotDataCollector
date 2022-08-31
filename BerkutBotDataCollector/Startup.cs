@@ -45,15 +45,18 @@ namespace BerkutBotDataCollector
             builder.Services.AddLogging();
             builder.Services.AddTransient<IRepository<Chat>, ChatsRepository>();
             builder.Services.AddTransient<IRepository<Member>, MembersRepository>();
+            builder.Services.AddTransient<IRepository<Message>, MessagesRepository>();
             builder.Services.AddAutoMapper(typeof(MapperProfile));
             builder.Services.AddTransient<ChatStep>();
             builder.Services.AddTransient<MemberStep>();
+            builder.Services.AddTransient<MessageStep>();
             builder.Services.AddTransient<IDataStorePipeline, DataStorePipeline>(factory =>
             {
                 var pipeline = new DataStorePipeline();
                 pipeline
                     .AddStep(factory.GetService<ChatStep>())
-                    .AddStep(factory.GetService<MemberStep>());
+                    .AddStep(factory.GetService<MemberStep>())
+                    .AddStep(factory.GetService<MessageStep>());
                 return pipeline;
             });
         }

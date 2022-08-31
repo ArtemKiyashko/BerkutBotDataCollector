@@ -11,7 +11,6 @@ namespace BerkutBotDataCollector.DataAccess.Repositories
 	public class MembersRepository : IRepository<Member>
 	{
         private readonly MembersDbContext _membersDbContext;
-        private object _lockObject;
 
         public MembersRepository()
 		{

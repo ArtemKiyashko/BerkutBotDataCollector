@@ -56,7 +56,7 @@ namespace BerkutBotDataCollector.Api
             await using ServiceBusSender sender = _serviceBusClient.CreateSender(_serviceBusOptions.AnnouncementsProcessorTopic);
 
             foreach (var chatId in await GetChatsToSend(req))
-            {
+            { 
                 announcementMessage.ChatId = chatId;
                 ServiceBusMessage serviceBusMessage = new ServiceBusMessage(announcementMessage.ToJson());
                 await sender.SendMessageAsync(serviceBusMessage);

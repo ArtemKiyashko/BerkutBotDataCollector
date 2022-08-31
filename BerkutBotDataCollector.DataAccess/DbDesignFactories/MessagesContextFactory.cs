@@ -7,25 +7,25 @@ using Microsoft.Extensions.Options;
 
 namespace BerkutBotDataCollector.DataAccess.DbDesignFactories
 {
-	internal class MembersContextFactory : IDesignTimeDbContextFactory<MembersDbContext>
+	internal class MessagesContextFactory : IDesignTimeDbContextFactory<MessagesDbContext>
     {
-        public MembersDbContext CreateDbContext(string[] args)
+        public MessagesDbContext CreateDbContext(string[] args)
         {
             var config = new ConfigurationBuilder()
-                .AddUserSecrets<MembersDbContext>(true)
+                .AddUserSecrets<MessagesDbContext>(true)
                 .AddEnvironmentVariables()
                 .Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<MembersDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<MessagesDbContext>();
 
             optionsBuilder.UseSqlServer(
-                config.GetConnectionString("MembersConnectionString"),
+                config.GetConnectionString("MessagesConnectionString"),
                 settings =>
                 {
                     settings.EnableRetryOnFailure();
                 });
 
-            return new MembersDbContext(optionsBuilder.Options);
+            return new MessagesDbContext(optionsBuilder.Options);
         }
     }
 }
