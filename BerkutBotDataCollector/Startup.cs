@@ -6,7 +6,6 @@ using BerkutBotDataCollector.DataAccess.Models;
 using BerkutBotDataCollector.DataAccess.Repositories;
 using BerkutBotDataCollector.Infrastructure;
 using BerkutBotDataCollector.Options;
-using BerkutBotDataCollector.Proxies;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
@@ -27,11 +26,6 @@ namespace BerkutBotDataCollector
             _functionConfig = new ConfigurationBuilder()
                 .AddEnvironmentVariables()
                 .Build();
-
-            builder.Services.Configure<BotOptions>(_functionConfig.GetSection("BotOptions"));
-            builder.Services.AddSingleton<ITelegramBotClient, TelegramBotClient>(provider =>
-                new TelegramBotClient(provider.GetRequiredService<IOptions<BotOptions>>().Value.Token));
-            builder.Services.AddTransient<ITelegramBotMessageProxy, TelegramBotMessageProxy>();
 
             builder.Services.Configure<ServiceBusOptions>(_functionConfig.GetSection("ServiceBusOptions"));
             builder.Services.AddAzureClients(clientBuilder =>
