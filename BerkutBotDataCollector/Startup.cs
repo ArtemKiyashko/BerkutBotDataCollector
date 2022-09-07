@@ -42,10 +42,10 @@ namespace BerkutBotDataCollector
             builder.Services.AddMembers("MembersConnectionString");
             builder.Services.AddMessages("MessagesConnectionString");
             builder.Services.AddAutoMapper(typeof(MapperProfile));
-            builder.Services.AddTransient<ChatStep>();
-            builder.Services.AddTransient<MemberStep>();
-            builder.Services.AddTransient<MessageStep>();
-            builder.Services.AddTransient<IDataStorePipeline, DataStorePipeline>(factory =>
+            builder.Services.AddScoped<ChatStep>();
+            builder.Services.AddScoped<MemberStep>();
+            builder.Services.AddScoped<MessageStep>();
+            builder.Services.AddScoped<IDataStorePipeline, DataStorePipeline>(factory =>
             {
                 var pipeline = new DataStorePipeline();
                 pipeline

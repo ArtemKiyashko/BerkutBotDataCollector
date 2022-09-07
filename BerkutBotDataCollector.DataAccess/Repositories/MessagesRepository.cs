@@ -19,8 +19,16 @@ namespace BerkutBotDataCollector.DataAccess.Repositories
 
         public async Task<Guid> Add(Message entity)
         {
-            _messagesDbContext.Messages.Add(entity);
-            await _messagesDbContext.SaveChangesAsync();
+            try
+            {
+                _messagesDbContext.Add(entity);
+                await _messagesDbContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+
+            }
+
             return entity.Id;
         }
 

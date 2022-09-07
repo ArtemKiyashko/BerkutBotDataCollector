@@ -6,7 +6,9 @@ using BerkutBotDataCollector.DataAccess.Models;
 using BerkutBotDataCollector.DataAccess.Options;
 using BerkutBotDataCollector.DataAccess.Repositories;
 using CommandLine;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BerkutBotDataCollector.DataAccess.Extensions
@@ -15,50 +17,48 @@ namespace BerkutBotDataCollector.DataAccess.Extensions
     {
         public static IServiceCollection AddChats(this IServiceCollection services, string connectionStringName)
         {
-            services.AddScoped<IDesignTimeDbContextFactory<ChatsDbContext>, ChatsContextFactory>();
-            services.AddScoped<ChatsDbContext>(provider =>
-            {
-                var contextFactory = provider.GetRequiredService<IDesignTimeDbContextFactory<ChatsDbContext>>();
-                return contextFactory.CreateDbContext(
-                    Parser.Default.FormatCommandLineArgs<DbCommandArgs>(
-                        new DbCommandArgs {
-                            ConnectionStringName = connectionStringName
-                        }));
+            var config = new ConfigurationBuilder()
+                .AddUserSecrets<ChatsDbContext>(true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            services.AddDbContext<ChatsDbContext>(options => {
+                options.UseSqlServer(config.GetConnectionString(connectionStringName),
+                    settings => settings.EnableRetryOnFailure());
             });
+
             services.AddScoped<IRepository<Chat>, ChatsRepository>();
             return services;
         }
 
         public static IServiceCollection AddMembers(this IServiceCollection services, string connectionStringName)
         {
-            services.AddScoped<IDesignTimeDbContextFactory<MembersDbContext>, MembersContextFactory>();
-            services.AddScoped<MembersDbContext>(provider =>
-            {
-                var contextFactory = provider.GetRequiredService<IDesignTimeDbContextFactory<MembersDbContext>>();
-                return contextFactory.CreateDbContext(
-                    Parser.Default.FormatCommandLineArgs<DbCommandArgs>(
-                        new DbCommandArgs
-                        {
-                            ConnectionStringName = connectionStringName
-                        }));
+            var config = new ConfigurationBuilder()
+                .AddUserSecrets<MembersDbContext>(true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            services.AddDbContext<MembersDbContext>(options => {
+                options.UseSqlServer(config.GetConnectionString(connectionStringName),
+                    settings => settings.EnableRetryOnFailure());
             });
+
             services.AddScoped<IRepository<Member>, MembersRepository>();
             return services;
         }
 
         public static IServiceCollection AddMessages(this IServiceCollection services, string connectionStringName)
         {
-            services.AddScoped<IDesignTimeDbContextFactory<MessagesDbContext>, MessagesContextFactory>();
-            services.AddSingleton<MessagesDbContext>(provider =>
-            {
-                var contextFactory = provider.GetRequiredService<IDesignTimeDbContextFactory<MessagesDbContext>>();
-                return contextFactory.CreateDbContext(
-                    Parser.Default.FormatCommandLineArgs<DbCommandArgs>(
-                        new DbCommandArgs
-                        {
-                            ConnectionStringName = connectionStringName
-                        }));
+            var config = new ConfigurationBuilder()
+                .AddUserSecrets<MessagesDbContext>(true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            services.AddDbContext<MessagesDbContext>(options => {
+                options.UseSqlServer(config.GetConnectionString(connectionStringName),
+                    settings => settings.EnableRetryOnFailure());
             });
+
             services.AddScoped<IRepository<Message>, MessagesRepository>();
             return services;
         }

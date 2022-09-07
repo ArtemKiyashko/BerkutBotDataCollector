@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BerkutBotDataCollector.DataAccess.DataContexts
 {
-    public class MessagesDbContext : DbContext
+    internal class MessagesDbContext : DbContext
     {
         public MessagesDbContext(DbContextOptions<MessagesDbContext> options)
             : base(options) {}
