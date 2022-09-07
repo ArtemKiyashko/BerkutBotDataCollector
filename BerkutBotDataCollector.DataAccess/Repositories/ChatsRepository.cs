@@ -8,14 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BerkutBotDataCollector.DataAccess.Repositories
 {
-	public class ChatsRepository : IRepository<Chat>
+	internal class ChatsRepository : IRepository<Chat>
 	{
         private readonly ChatsDbContext _chatsDbContext;
 
-        public ChatsRepository()
+        public ChatsRepository(ChatsDbContext chatsDbContext)
 		{
-            var contextFactory = new ChatsContextFactory();
-            _chatsDbContext = contextFactory.CreateDbContext(default);
+            _chatsDbContext = chatsDbContext;
         }
 
         public async Task<Guid> Add(Chat entity)

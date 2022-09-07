@@ -1,5 +1,7 @@
 ﻿using System;
 using BerkutBotDataCollector.DataAccess.DataContexts;
+using BerkutBotDataCollector.DataAccess.Options;
+using CommandLine;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +13,8 @@ namespace BerkutBotDataCollector.DataAccess.DbDesignFactories
     {
         public ChatsDbContext CreateDbContext(string[] args)
         {
+            var dbCommectionOptions = Parser.Default.ParseArguments<DbCommandArgs>(args).Value;
+
             var config = new ConfigurationBuilder()
                 .AddUserSecrets<ChatsDbContext>(true)
                 .AddEnvironmentVariables()
@@ -19,7 +23,7 @@ namespace BerkutBotDataCollector.DataAccess.DbDesignFactories
             var optionsBuilder = new DbContextOptionsBuilder<ChatsDbContext>();
 
             optionsBuilder.UseSqlServer(
-                config.GetConnectionString("ChatsConnectionString"),
+                config.GetConnectionString(dbCommectionOptions.ConnectionStringName),
                 settings =>
                 {
                     settings.EnableRetryOnFailure();

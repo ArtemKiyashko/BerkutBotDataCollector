@@ -58,7 +58,7 @@ namespace BerkutBotDataCollector.DataAccess.Migrations
 
                     b.HasIndex("UpdatedDateTime");
 
-                    b.ToTable("Chats");
+                    b.ToTable("Chats", (string)null);
                 });
 #pragma warning restore 612, 618
         }

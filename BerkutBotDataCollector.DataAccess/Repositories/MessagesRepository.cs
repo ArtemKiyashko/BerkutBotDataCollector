@@ -8,21 +8,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BerkutBotDataCollector.DataAccess.Repositories
 {
-	public class MessagesRepository : IRepository<Message>
+	internal class MessagesRepository : IRepository<Message>
 	{
         private readonly MessagesDbContext _messagesDbContext;
 
-        public MessagesRepository()
+        public MessagesRepository(MessagesDbContext messagesDbContext)
 		{
-            var contextFactory = new MessagesContextFactory();
-            _messagesDbContext = contextFactory.CreateDbContext(default);
+            _messagesDbContext = messagesDbContext;
         }
 
         public async Task<Guid> Add(Message entity)
         {
             _messagesDbContext.Messages.Add(entity);
             await _messagesDbContext.SaveChangesAsync();
-
             return entity.Id;
         }
 

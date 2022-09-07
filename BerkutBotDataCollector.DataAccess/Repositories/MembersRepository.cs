@@ -8,14 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BerkutBotDataCollector.DataAccess.Repositories
 {
-	public class MembersRepository : IRepository<Member>
+	internal class MembersRepository : IRepository<Member>
 	{
         private readonly MembersDbContext _membersDbContext;
 
-        public MembersRepository()
+        public MembersRepository(MembersDbContext membersDbContext)
 		{
-            var contextFactory = new MembersContextFactory();
-            _membersDbContext = contextFactory.CreateDbContext(default);
+            _membersDbContext = membersDbContext;
         }
 
         public async Task<Guid> Add(Member entity)
