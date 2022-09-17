@@ -6,7 +6,7 @@ namespace BerkutBotDataCollector.Infrastructure
 	public interface IDataStoreStep
 	{
 		IDataStoreStep SetNext(IDataStoreStep step);
-		Message Run(Message tgMessage);
+		Message Run(Update tgUpdate);
 	}
 }
 

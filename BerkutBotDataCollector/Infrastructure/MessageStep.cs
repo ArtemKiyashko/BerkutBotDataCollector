@@ -13,16 +13,19 @@ namespace BerkutBotDataCollector.Infrastructure
         private readonly IMapper _mapper;
         private readonly IRepository<Dto.Message> _repository;
         private readonly ILogger<MessageStep> _logger;
+        private readonly ITgMessageFactory _tgMessageFactory;
 
-        public MessageStep(IMapper mapper, IRepository<Dto.Message> repository, ILogger<MessageStep> logger)
+        public MessageStep(IMapper mapper, IRepository<Dto.Message> repository, ILogger<MessageStep> logger, ITgMessageFactory tgMessageFactory)
 		{
             _mapper = mapper;
             _repository = repository;
             _logger = logger;
+            _tgMessageFactory = tgMessageFactory;
         }
 
-        public override Vm.Message Run(Vm.Message tgMessage)
+        public override Vm.Message Run(Vm.Update tgUpdate)
         {
+            var tgMessage = _tgMessageFactory.GetMessage(tgUpdate);
             try
             {
                 _repository.Add(_mapper.Map<Dto.Message>(tgMessage));
@@ -31,7 +34,7 @@ namespace BerkutBotDataCollector.Infrastructure
             {
                 _logger.LogError(ex, "Error saving entity");
             }
-            return base.Run(tgMessage);
+            return base.Run(tgUpdate);
         }
     }
 }

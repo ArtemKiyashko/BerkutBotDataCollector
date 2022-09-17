@@ -22,9 +22,9 @@ namespace BerkutBotDataCollector.Infrastructure
             return this;
         }
 
-        public void Run(Message tgMessage)
+        public void Run(Update tgUpdate)
         {
-            _firstStep.Run(tgMessage);
+            _firstStep.Run(tgUpdate);
         }
     }
 }

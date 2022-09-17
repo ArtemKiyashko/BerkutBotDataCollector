@@ -41,6 +41,8 @@ namespace BerkutBotDataCollector
             builder.Services.AddTransient<IRepository<Member>, MembersRepository>();
             builder.Services.AddTransient<IRepository<Message>, MessagesRepository>();
             builder.Services.AddAutoMapper(typeof(MapperProfile));
+            builder.Services.AddTransient<ITgMessageFactory, TgMessageFactory>();
+            builder.Services.AddTransient<ITgFromFactory, TgFromFactory>();
             builder.Services.AddTransient<ChatStep>();
             builder.Services.AddTransient<MemberStep>();
             builder.Services.AddTransient<MessageStep>();

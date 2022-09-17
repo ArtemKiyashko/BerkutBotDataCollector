@@ -7,11 +7,11 @@ namespace BerkutBotDataCollector.Infrastructure
 	{
         private IDataStoreStep _next;
 
-        public virtual Message Run(Message tgMessage)
+        public virtual Message Run(Update tgUpdate)
         {
             if (_next is null)
                 return null;
-            return _next.Run(tgMessage);
+            return _next.Run(tgUpdate);
         }
 
         public IDataStoreStep SetNext(IDataStoreStep step)

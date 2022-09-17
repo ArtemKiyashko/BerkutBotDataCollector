@@ -6,7 +6,7 @@ namespace BerkutBotDataCollector.Infrastructure
 	public interface IDataStorePipeline
 	{
 		IDataStorePipeline AddStep(IDataStoreStep dataStoreStep);
-		void Run(Message tgMessage);
+		void Run(Update tgUpdate);
 	}
 }
 

@@ -13,16 +13,19 @@ namespace BerkutBotDataCollector.Infrastructure
         private readonly IMapper _mapper;
         private readonly IRepository<Dto.Chat> _repository;
         private readonly ILogger<ChatStep> _logger;
+        private readonly ITgMessageFactory _tgMessageFactory;
 
-        public ChatStep(IMapper mapper, IRepository<Dto.Chat> repository, ILogger<ChatStep> logger)
+        public ChatStep(IMapper mapper, IRepository<Dto.Chat> repository, ILogger<ChatStep> logger, ITgMessageFactory tgMessageFactory)
 		{
             _mapper = mapper;
             _repository = repository;
             _logger = logger;
+            _tgMessageFactory = tgMessageFactory;
         }
 
-        public override Vm.Message Run(Vm.Message tgMessage)
+        public override Vm.Message Run(Vm.Update tgUpdate)
         {
+            var tgMessage = _tgMessageFactory.GetMessage(tgUpdate);
             try
             {
                 _repository.Add(_mapper.Map<Dto.Chat>(tgMessage.Chat));
@@ -31,7 +34,7 @@ namespace BerkutBotDataCollector.Infrastructure
             {
                 _logger.LogError(ex, "Error saving entity");
             }
-            return base.Run(tgMessage);
+            return base.Run(tgUpdate);
         }
     }
 }

@@ -21,9 +21,9 @@ namespace BerkutBotDataCollector
         }
 
         [FunctionName("BerkutBotDataCollector")]
-        public void Run([ServiceBusTrigger("tgincomemessages", "datacollector", Connection = "ServiceBusOptions", IsSessionsEnabled = true)] Telegram.Bot.Types.Message tgMessage, ILogger log)
+        public void Run([ServiceBusTrigger("alltgmessages", "datacollector", Connection = "ServiceBusOptions", IsSessionsEnabled = true)] Telegram.Bot.Types.Update tgUpdate, ILogger log)
         {
-            _dataStorePipeline.Run(tgMessage);
+            _dataStorePipeline.Run(tgUpdate);
         }
     }
 }
