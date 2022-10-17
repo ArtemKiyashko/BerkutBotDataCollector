@@ -8,7 +8,7 @@ namespace BerkutBotDataCollector.DataAccess.Managers
     {
         private readonly IRepository<Message> _repository;
 
-        internal MessageManager(IRepository<Message> repository)
+        public MessageManager(IRepository<Message> repository)
         {
             _repository = repository;
         }

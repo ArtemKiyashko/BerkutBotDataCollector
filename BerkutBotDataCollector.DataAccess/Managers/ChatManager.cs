@@ -11,7 +11,7 @@ namespace BerkutBotDataCollector.DataAccess.Managers
     {
         private readonly IRepository<Chat> _repository;
 
-        internal ChatManager(IRepository<Chat> repository)
+        public ChatManager(IRepository<Chat> repository)
         {
             _repository = repository;
         }

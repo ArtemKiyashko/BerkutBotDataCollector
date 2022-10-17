@@ -10,7 +10,7 @@ namespace BerkutBotDataCollector.DataAccess.Managers
     {
         private readonly IRepository<Member> _repository;
 
-        internal MemberManager(IRepository<Member> repository)
+        public MemberManager(IRepository<Member> repository)
         {
             _repository = repository;
         }

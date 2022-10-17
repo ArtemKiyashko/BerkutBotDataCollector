@@ -12,7 +12,7 @@ namespace BerkutBotDataCollector.DataAccess.Repositories
 	{
         private readonly MembersDbContext _membersDbContext;
 
-        internal MembersRepository()
+        public MembersRepository()
 		{
             var contextFactory = new MembersContextFactory();
             _membersDbContext = contextFactory.CreateDbContext(default);

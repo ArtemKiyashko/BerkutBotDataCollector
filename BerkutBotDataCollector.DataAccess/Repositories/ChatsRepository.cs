@@ -12,7 +12,7 @@ namespace BerkutBotDataCollector.DataAccess.Repositories
 	{
         private readonly ChatsDbContext _chatsDbContext;
 
-        internal ChatsRepository()
+        public ChatsRepository()
 		{
             var contextFactory = new ChatsContextFactory();
             _chatsDbContext = contextFactory.CreateDbContext(default);
