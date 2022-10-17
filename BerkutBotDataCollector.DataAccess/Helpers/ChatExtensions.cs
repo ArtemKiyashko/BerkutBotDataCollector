@@ -12,6 +12,7 @@ namespace BerkutBotDataCollector.DataAccess.Helpers
             destination.LastName = source.LastName;
             destination.Username = source.Username;
             destination.UpdatedDateTime = source.UpdatedDateTime;
+            destination.IsDeleted = source.IsDeleted;
 			return destination;
         }
 	}

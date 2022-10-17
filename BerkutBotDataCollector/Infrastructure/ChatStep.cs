@@ -25,10 +25,15 @@ namespace BerkutBotDataCollector.Infrastructure
 
         public override Vm.Message Run(Vm.Update tgUpdate)
         {
-            var tgMessage = _tgMessageFactory.GetMessage(tgUpdate);
+            var tgChat = _tgMessageFactory.GetChat(tgUpdate);
             try
             {
-                _repository.Add(_mapper.Map<Dto.Chat>(tgMessage.Chat));
+                var chatDto = _mapper.Map<Dto.Chat>(tgChat);
+
+                //TODO: Move this assignment to Mapper
+                chatDto.IsDeleted = tgUpdate?.MyChatMember?.NewChatMember?.Status == Vm.Enums.ChatMemberStatus.Kicked;
+
+                _repository.Add(chatDto);
             }
             catch(Exception ex)
             {

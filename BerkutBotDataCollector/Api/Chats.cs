@@ -6,13 +6,11 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Dto = BerkutBotDataCollector.DataAccess.Models;
 using BerkutBotDataCollector.DataAccess.Interfaces;
 using BerkutBotDataCollector.ViewModels;
 using Azure.Messaging.ServiceBus;
 using AutoMapper;
-using Vm = Telegram.Bot.Types;
 using BerkutBotDataCollector.Helpers;
 using Microsoft.Extensions.Options;
 using BerkutBotDataCollector.Options;
@@ -66,7 +64,7 @@ namespace BerkutBotDataCollector.Api
 
         private async Task<IEnumerable<long>> GetChatsToSend(AnnouncementRequest announcementRequest)
             => announcementRequest.SendToAll ?
-            (await _repository.GetAll()).Select(chat => chat.TelegramId)
+            (await _repository.GetAll()).Where(chat => !chat.IsDeleted).Select(chat => chat.TelegramId)
             : announcementRequest.Chats;
     }
 }
