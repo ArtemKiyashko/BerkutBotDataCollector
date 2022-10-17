@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using BerkutBotDataCollector.Infrastructure;
+using System.Threading.Tasks;
 
 namespace BerkutBotDataCollector
 {
@@ -15,9 +16,9 @@ namespace BerkutBotDataCollector
         }
 
         [FunctionName("BerkutBotDataCollector")]
-        public void Run([ServiceBusTrigger("alltgmessages", "datacollector", Connection = "ServiceBusOptions", IsSessionsEnabled = true)] Telegram.Bot.Types.Update tgUpdate, ILogger log)
+        public async Task Run([ServiceBusTrigger("alltgmessages", "datacollector", Connection = "ServiceBusOptions", IsSessionsEnabled = true)] Telegram.Bot.Types.Update tgUpdate, ILogger log)
         {
-            _dataStorePipeline.Run(tgUpdate);
+            await _dataStorePipeline.Run(tgUpdate);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
 namespace BerkutBotDataCollector.Infrastructure
@@ -7,11 +8,11 @@ namespace BerkutBotDataCollector.Infrastructure
 	{
         private IDataStoreStep _next;
 
-        public virtual Message Run(Update tgUpdate)
+        public virtual async Task<Message> Run(Update tgUpdate)
         {
             if (_next is null)
                 return null;
-            return _next.Run(tgUpdate);
+            return await _next.Run(tgUpdate);
         }
 
         public IDataStoreStep SetNext(IDataStoreStep step)

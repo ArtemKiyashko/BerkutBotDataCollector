@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BerkutBotDataCollector.DataAccess.Repositories
 {
-	public class ChatsRepository : IRepository<Chat>
+	internal class ChatsRepository : IRepository<Chat>
 	{
         private readonly ChatsDbContext _chatsDbContext;
 
-        public ChatsRepository()
+        internal ChatsRepository()
 		{
             var contextFactory = new ChatsContextFactory();
             _chatsDbContext = contextFactory.CreateDbContext(default);
@@ -20,26 +20,17 @@ namespace BerkutBotDataCollector.DataAccess.Repositories
 
         public async Task<Guid> Add(Chat entity)
         {
-            var existedChat = await GetByTelegramId(entity.TelegramId);
-
-            if (existedChat is not null)
-            {
-                entity.CopyTo(existedChat);
-                await _chatsDbContext.SaveChangesAsync();
-                return existedChat.Id;
-            }
-
             _chatsDbContext.Chats.Add(entity);
-            await _chatsDbContext.SaveChangesAsync();
-
             return entity.Id;
         }
 
-        public async Task<ICollection<Chat>> GetAll() => await _chatsDbContext.Chats.ToListAsync();
+        public IQueryable<Chat> GetAll() => _chatsDbContext.Chats.AsQueryable();
 
         public async Task<Chat> GetById(Guid id) => await _chatsDbContext.Chats.FindAsync(id);
 
         public async Task<Chat> GetByTelegramId(long telegramId) => await _chatsDbContext.Chats.FirstOrDefaultAsync(c => c.TelegramId == telegramId);
+
+        public async Task SaveChanges() => await _chatsDbContext.SaveChangesAsync();
     }
 }
 

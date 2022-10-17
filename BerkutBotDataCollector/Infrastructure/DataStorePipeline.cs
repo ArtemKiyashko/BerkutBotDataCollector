@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
 namespace BerkutBotDataCollector.Infrastructure
@@ -22,10 +23,7 @@ namespace BerkutBotDataCollector.Infrastructure
             return this;
         }
 
-        public void Run(Update tgUpdate)
-        {
-            _firstStep.Run(tgUpdate);
-        }
+        public async Task Run(Update tgUpdate) => await _firstStep.Run(tgUpdate);
     }
 }
 

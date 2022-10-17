@@ -1,9 +1,9 @@
 ﻿using System;
 using Azure.Identity;
 using BerkutBotDataCollector.DataAccess.DataContexts;
-using BerkutBotDataCollector.DataAccess.Interfaces;
+using BerkutBotDataCollector.DataAccess.Extensions;
+using BerkutBotDataCollector.DataAccess.Managers;
 using BerkutBotDataCollector.DataAccess.Models;
-using BerkutBotDataCollector.DataAccess.Repositories;
 using BerkutBotDataCollector.Infrastructure;
 using BerkutBotDataCollector.Options;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
@@ -37,9 +37,9 @@ namespace BerkutBotDataCollector
             });
 
             builder.Services.AddLogging();
-            builder.Services.AddTransient<IRepository<Chat>, ChatsRepository>();
-            builder.Services.AddTransient<IRepository<Member>, MembersRepository>();
-            builder.Services.AddTransient<IRepository<Message>, MessagesRepository>();
+            builder.Services.AddChats();
+            builder.Services.AddMembers();
+            builder.Services.AddMessages();
             builder.Services.AddAutoMapper(typeof(MapperProfile));
             builder.Services.AddTransient<ITgMessageFactory, TgMessageFactory>();
             builder.Services.AddTransient<ITgFromFactory, TgFromFactory>();

@@ -20,6 +20,8 @@
     <None Remove="Microsoft.Extensions.Configuration.UserSecrets" />
     <None Remove="DbDesignFactories\" />
     <None Remove="Helpers\" />
+    <None Remove="Managers\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
@@ -39,5 +41,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="DbDesignFactories\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Managers\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>
