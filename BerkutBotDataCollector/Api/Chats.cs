@@ -59,22 +59,11 @@ namespace BerkutBotDataCollector.Api
         public async Task<IActionResult> SendAnnouncement(
             [HttpTrigger(AuthorizationLevel.Function, "post")] AnnouncementRequest req, ILogger log)
         {
-            var announcementMessage = _mapper.Map<AnnouncementMessage>(req.Announcement);
-            await using ServiceBusSender sender = _serviceBusClient.CreateSender(_serviceBusOptions.AnnouncementsProcessorTopic);
-
-            foreach (var chatId in await GetChatsToSend(req))
-            { 
-                announcementMessage.ChatId = chatId;
-                ServiceBusMessage serviceBusMessage = new ServiceBusMessage(announcementMessage.ToJson());
-                await sender.SendMessageAsync(serviceBusMessage);
-            }
+            await using ServiceBusSender sender = _serviceBusClient.CreateSender(_serviceBusOptions.AnnouncementsSchedulerTopic);
+            ServiceBusMessage serviceBusMessage = new ServiceBusMessage(req.ToJson());
+            await sender.SendMessageAsync(serviceBusMessage);
             return new OkResult();
         }
-
-        private async Task<IEnumerable<long>> GetChatsToSend(AnnouncementRequest announcementRequest)
-            => announcementRequest.SendToAll ?
-            (await _chatManager.GetActiveChats()).Select(chat => chat.TelegramId)
-            : announcementRequest.Chats;
     }
 }
 
