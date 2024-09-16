@@ -12,6 +12,7 @@ namespace BerkutBotDataCollector.ViewModels
         public string Text { get; set; }
         public Uri ContentUrl { get; set; }
         public InlineKeyboardMarkup ReplyMarkup { get; set; }
+        public ContentProperties ContentProperties { get; set; }
     }
 }
 
